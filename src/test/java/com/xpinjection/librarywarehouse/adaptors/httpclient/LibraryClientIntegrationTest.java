@@ -5,6 +5,10 @@ import com.xpinjection.test.FeignClientTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @FeignClientTest(port = 8080, stubs = "classpath*:wiremock/**/*.json")
@@ -25,4 +29,15 @@ public class LibraryClientIntegrationTest {
 
         assertThat(books).isEmpty();
     }
+    @Test
+    void ifBooksAddedThenTheyAreReturned() {
+        Map<String, String> books = new HashMap<>();
+        books.put("test book", "test Author");
+        books.put("Hibernate in Action", "Who cares?");
+        List<BookDto> returnedBooksList = libraryClient.addBooks(books);
+        assertThat(returnedBooksList).contains(new BookDto(17L, "testBook1", "testAuthor1"));
+        assertThat(returnedBooksList).contains(new BookDto(18L, "testBook2", "testAuthor2"));
+        assertThat(returnedBooksList.size()==2);
+    }
+
 }

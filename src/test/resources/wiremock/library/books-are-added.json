@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/books"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": [
+      {
+        "id": 17,
+        "name": "testBook1",
+        "author": "testAuthor1"
+      },
+      {
+        "id": 18,
+        "name": "testBook2",
+        "author": "testAuthor2"
+      }
+    ],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
